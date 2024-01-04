@@ -36,6 +36,7 @@ export default async function () {
   });
 
   global.__DYNAMODB_CLIENT__ = dynamoDB;
+  console.log('Hope');
 
   try {
     const promises: (Promise<ListTablesCommandOutput> | Promise<void>)[] = [
@@ -69,7 +70,7 @@ export default async function () {
       await waitForLocalhost(port, hostname);
     }
   }
-  debug(`dynamodb-local is ready on port ${port}`);
+  console.log(`dynamodb-local is ready on port ${port}`);
 
   await createTables(dynamoDB, newTables);
 
