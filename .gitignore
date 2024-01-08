@@ -1,7 +1,6 @@
 .idea/
 coverage/
 node_modules/
-lib/
 temp
 yarn.lock
 *.log
