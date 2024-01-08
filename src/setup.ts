@@ -14,6 +14,8 @@ const DEFAULT_PORT = 8000;
 const DEFAULT_HOST = 'localhost';
 const DEFAULT_OPTIONS: argValues[] = ['-sharedDb'];
 
+const sleep = (time: number) => new Promise(res => setTimeout(res, time))
+
 export default async function () {
   const {
     tables: newTables,
@@ -72,6 +74,7 @@ export default async function () {
   debug(`dynamodb-local is ready on port ${port}`);
 
   await createTables(dynamoDB, newTables);
+  await sleep(2000);
 }
 
 function createTables(dynamoDB: DynamoDB, tables: CreateTableCommandInput[]) {
