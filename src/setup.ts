@@ -78,10 +78,10 @@ export default async function () {
   }
   debug(`dynamodb-local is ready on port ${port}`);
 
-  await createTables(dynamoDB, newTables);
+  const response = await createTables(dynamoDB, newTables);
   await sleep(2000);
   const createdTables = await dynamoDB.listTables({});
-  debug(`created tables`, { createdTables });
+  debug(`created tables`, { createdTables, response, dynamoDB });
 }
 
 function createTables(dynamoDB: DynamoDB, tables: CreateTableCommandInput[]) {
