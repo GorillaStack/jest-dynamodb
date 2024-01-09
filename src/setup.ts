@@ -81,7 +81,9 @@ export default async function () {
   const response = await createTables(dynamoDB, newTables);
   await sleep(2000);
   const createdTables = await dynamoDB.listTables({});
-  debug(`created tables`, { createdTables, response, dynamoDB, endpoint: dynamoDB.config });
+  const region = await dynamoDB.config.region();
+  const endpoint = dynamoDB.config.endpoint ? await dynamoDB.config.endpoint() : undefined;
+  debug(`created tables`, { createdTables, response, dynamoDB, credentials: dynamoDB.config.credentials, endpoint, region});
 }
 
 function createTables(dynamoDB: DynamoDB, tables: CreateTableCommandInput[]) {
