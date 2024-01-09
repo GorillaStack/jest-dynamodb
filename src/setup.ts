@@ -51,8 +51,13 @@ export default async function () {
     const [TablesList] = await Promise.all(promises);
     const tableNames = TablesList?.TableNames;
 
+    debug(`Tablenames`, { tableNames });
+
     if (tableNames) {
-      await deleteTables(dynamoDB, getRelevantTables(tableNames, newTables));
+      const relevantTables = getRelevantTables(tableNames, newTables);
+      await deleteTables(dynamoDB, relevantTables);
+
+      debug(`relevant tables`, { relevantTables, newTables });
     }
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -75,6 +80,8 @@ export default async function () {
 
   await createTables(dynamoDB, newTables);
   await sleep(2000);
+  const createdTables = await dynamoDB.listTables({});
+  debug(`created tables`, { createdTables });
 }
 
 function createTables(dynamoDB: DynamoDB, tables: CreateTableCommandInput[]) {
