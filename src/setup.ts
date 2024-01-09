@@ -53,7 +53,7 @@ export default async function () {
 
     debug(`Tablenames`, { tableNames });
 
-    if (tableNames) {
+    if (tableNames && tableNames.length > 0 ) {
       const relevantTables = getRelevantTables(tableNames, newTables);
       await deleteTables(dynamoDB, relevantTables);
 
