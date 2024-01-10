@@ -14,6 +14,7 @@ export default async function (jestArgs: JestArgs) {
     const watching = jestArgs.watch || jestArgs.watchAll;
 
     if (!watching) {
+      debug('Stopping DynamoDB', global.__DYNAMODB__);
       await DynamoDbLocal.stopChild(global.__DYNAMODB__);
     }
   } else {
